@@ -26,8 +26,8 @@
   "scripts": {
     "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "yarn eslint . --fix --ext .js,.jsx,.ts,.tsx",
-    "build": "rollup -c rollup.config.js",
-    "start": "rollup -c rollup.config.js -w",
+    "build": "rollup -c rollup.config.ts",
+    "start": "rollup -c rollup.config.ts -w",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
     "report-coverage": "cat ./coverage/lcov.info | coveralls"

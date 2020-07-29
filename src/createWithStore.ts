@@ -10,9 +10,7 @@ import { ReactStore, StoreConsumer, WithStore } from "./types";
 export function createWithStore<S extends StoreValue>(
   store: ReactStore<S>
 ): WithStore<S> {
-  return function withStore(
-    consumer: StoreConsumer<S>
-  ): ReturnType<StoreConsumer<S>> {
+  return function withStore<T>(consumer: StoreConsumer<S, T>): T {
     return consumer(store);
   };
 }

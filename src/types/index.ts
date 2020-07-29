@@ -87,18 +87,19 @@ export type ReactStore<S extends StoreValue> = Store<S> & {
  * @typeParam S - the state tree
  * @typeParam T - the value produced by the consumer
  */
-export type StoreConsumer<S extends StoreValue> = <T>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type StoreConsumer<S extends StoreValue, T> = (
   store: ReactStore<S>
 ) => T;
 
 /**
  * A higher-order function that provides a consumer with the `ReactStore`.
  *
- * @typeParam T - the state tree
+ * @typeParam S - the state tree
  */
-export type WithStore<S extends StoreValue> = (
-  consumer: StoreConsumer<S>
-) => ReturnType<StoreConsumer<S>>;
+export type WithStore<S extends StoreValue> = <T>(
+  consumer: StoreConsumer<S, T>
+) => T;
 
 /**
  * React bindings to the Gact store.
