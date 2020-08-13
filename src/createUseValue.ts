@@ -1,8 +1,7 @@
-import { useReducer, useRef, useCallback, useLayoutEffect } from "react";
-import { Store, StoreValue, Path, PathFor, Value } from "@gact/store";
-
+import { PathFor, Store, StoreValue } from "@gact/store";
+import { useCallback, useLayoutEffect, useReducer, useRef } from "react";
 import { createReactiveCollection } from "./createReactiveCollection";
-import { UseValue, Transformer } from "./types";
+import { Transformer, UseValue } from "./types";
 
 /**
  * Creates the `useValue` hook.
@@ -16,13 +15,13 @@ export function createUseValue<S extends StoreValue>(
 ): UseValue<S> {
   const subscribe = createReactiveCollection(store)();
 
-  return function useValue<P extends Path<S>, V extends StoreValue, T>(
-    path: P | PathFor<S, V>,
-    transformer?: Transformer<Value<S, P, V>, T>
-  ): Value<S, P, V> | T {
+  return function useValue<V extends StoreValue, T>(
+    path: PathFor<S, V>,
+    transformer?: Transformer<V, T>
+  ): V | T {
     const [, forceRender] = useReducer((s) => s + 1, 0);
 
-    const latestValue = useRef<Value<S, P, V> | T>(
+    const latestValue = useRef<V | T>(
       transformer ? transformer(store.get(path)) : store.get(path)
     );
 

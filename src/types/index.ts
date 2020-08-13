@@ -1,4 +1,4 @@
-import { Path, PathFor, Value, StoreValue, Store } from "@gact/store";
+import { Path, PathFor, Store, StoreValue } from "@gact/store";
 
 /**
  * A subscriber to a `ReactiveCollection`
@@ -59,14 +59,10 @@ export type Transformer<V, T> = (value: V) => T;
  * @typeParam S - the state tree
  */
 export type UseValue<S extends StoreValue> = {
-  <P extends Path<S>, V extends StoreValue>(path: P | PathFor<S, V>): Value<
-    S,
-    P,
-    V
-  >;
-  <P extends Path<S>, V extends StoreValue, T>(
-    path: P | PathFor<S, V>,
-    transformer: Transformer<Value<S, P, V>, T>
+  <V extends StoreValue>(path: PathFor<S, V>): V;
+  <V extends StoreValue, T>(
+    path: PathFor<S, V>,
+    transformer: Transformer<V, T>
   ): T;
 };
 

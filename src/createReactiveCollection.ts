@@ -1,14 +1,12 @@
-import { unstable_batchedUpdates as batch } from "react-dom";
 import {
   computePathLineage,
   Path,
   PathFor,
-  StoreValue,
-  StoreEvent,
-  ValueAt,
   Store,
+  StoreEvent,
+  StoreValue,
 } from "@gact/store";
-
+import { unstable_batchedUpdates as batch } from "react-dom";
 import { Listener, ReactiveCollection, Subscribe } from "./types";
 
 function flatten<T>(deepArr: Array<Array<T>>): Array<T> {
@@ -33,9 +31,9 @@ function computeWritePaths<S extends StoreValue>(
     case "SET":
     case "UPDATE":
     case "REMOVE":
-      return Array.from(
-        computePathLineage(event.path, event.prevValue as ValueAt<S, Path<S>>)
-      ).map(String);
+      return Array.from(computePathLineage(event.path, event.prevValue)).map(
+        String
+      );
     case "TRANSACTION":
       return flatten(dedup(event.events.map(computeWritePaths)));
     default:

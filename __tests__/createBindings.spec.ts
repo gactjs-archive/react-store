@@ -1,5 +1,4 @@
 import { createStore } from "@gact/store";
-
 import { createBindings } from "../src";
 
 describe("createBindings", function() {

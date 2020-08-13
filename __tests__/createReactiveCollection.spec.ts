@@ -1,5 +1,4 @@
 import { createStore } from "@gact/store";
-
 import { createReactiveCollection } from "../src/createReactiveCollection";
 
 describe("createReactive", function() {
@@ -39,7 +38,7 @@ describe("createReactive", function() {
 
     subscribe(store.path("a"), subscriber);
 
-    set(path("a"), "aa");
+    set<string>(path("a"), "aa");
 
     expect(subscriber).toHaveBeenCalledTimes(1);
     subscriber.mockReset();
@@ -59,12 +58,12 @@ describe("createReactive", function() {
 
     subscribe(path(), subscriber);
 
-    set(path("a"), "aa");
-    update(path("b", "c"), (c) => c + BigInt(100));
-    update(path("d"), function(d) {
+    set<string>(path("a"), "aa");
+    update<bigint>(path("b", "c"), (c) => c + BigInt(100));
+    update<Array<number>>(path("d"), function(d) {
       d.push(0);
     });
-    set(path("e", "bob"), "cool");
+    set<string>(path("e", "bob"), "cool");
     remove(path("e", "bob"));
 
     expect(subscriber).toHaveBeenCalledTimes(5);
@@ -81,12 +80,12 @@ describe("createReactive", function() {
     subscribe(path(), subscriber);
 
     transaction(function() {
-      set(path("a"), "aa");
-      update(path("b", "c"), (c) => c + BigInt(100));
-      update(path("d"), function(d) {
+      set<string>(path("a"), "aa");
+      update<bigint>(path("b", "c"), (c) => c + BigInt(100));
+      update<Array<number>>(path("d"), function(d) {
         d.push(0);
       });
-      set(path("e", "bob"), "cool");
+      set<string>(path("e", "bob"), "cool");
       remove(path("e", "bob"));
     });
 
@@ -105,7 +104,7 @@ describe("createReactive", function() {
 
     unsubscribe();
 
-    set(path("a"), "aa");
+    set<string>(path("a"), "aa");
     update(path("a"), (a) => a + "a");
 
     expect(subscriber).not.toHaveBeenCalled();
@@ -123,7 +122,7 @@ describe("createReactive", function() {
     subscribe(store.path("a"), subscriberOne);
     subscribe(store.path("a"), subscriberTwo);
 
-    set(path("a"), "aa");
+    set<string>(path("a"), "aa");
 
     expect(subscriberOne).toHaveBeenCalledTimes(1);
     subscriberOne.mockReset();
@@ -152,7 +151,7 @@ describe("createReactive", function() {
     unsubscribeOne();
     unsubscribeTwo();
 
-    set(path("a"), "aa");
+    set<string>(path("a"), "aa");
     update(path("a"), (a) => a + "a");
 
     expect(subscriberOne).not.toHaveBeenCalled();

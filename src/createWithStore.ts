@@ -1,5 +1,4 @@
 import { StoreValue } from "@gact/store";
-
 import { ReactStore, StoreConsumer, WithStore } from "./types";
 
 /**

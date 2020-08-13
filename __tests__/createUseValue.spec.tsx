@@ -1,9 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React from "react";
 import { createStore } from "@gact/store";
-import { renderHook, act } from "@testing-library/react-hooks";
 import * as rtl from "@testing-library/react";
-
+import { act, renderHook } from "@testing-library/react-hooks";
+import React from "react";
 import { createUseValue } from "../src/createUseValue";
 
 describe("createUseValue", function() {
@@ -54,7 +52,9 @@ describe("createUseValue", function() {
     const useValue = createUseValue(store);
     const { path, update } = store;
 
-    const res = renderHook(() => useValue(path("a"), (a) => a.length));
+    const res = renderHook(() =>
+      useValue<string, number>(path("a"), (a) => a.length)
+    );
     const { result } = res;
     expect(result.current).toBe(1);
 
@@ -71,8 +71,8 @@ describe("createUseValue", function() {
     const { path, set } = store;
     const renderedItems: Array<string> = [];
 
-    function Comp() {
-      const value = useValue(path("a"));
+    function Comp(): JSX.Element {
+      const value = useValue<string>(path("a"));
 
       renderedItems.push(value);
 
@@ -83,7 +83,7 @@ describe("createUseValue", function() {
 
     expect(renderedItems).toHaveLength(1);
 
-    set(path("a"), "a");
+    set<string>(path("a"), "a");
 
     expect(renderedItems).toHaveLength(1);
   });
@@ -94,8 +94,8 @@ describe("createUseValue", function() {
     const { path, set } = store;
     const renderedItems: Array<number> = [];
 
-    function Comp() {
-      const value = useValue(path("a"), (a) => a.length);
+    function Comp(): JSX.Element {
+      const value = useValue<string, number>(path("a"), (a) => a.length);
 
       renderedItems.push(value);
 
@@ -106,7 +106,7 @@ describe("createUseValue", function() {
 
     expect(renderedItems).toHaveLength(1);
 
-    set(path("a"), "b");
+    set<string>(path("a"), "b");
 
     expect(renderedItems).toHaveLength(1);
   });

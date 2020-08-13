@@ -1,10 +1,9 @@
 export { createBindings } from "./createBindings";
-
 export {
-  Transformer,
-  UseValue,
+  Bindings,
   ReactStore,
   StoreConsumer,
+  Transformer,
+  UseValue,
   WithStore,
-  Bindings,
 } from "./types";

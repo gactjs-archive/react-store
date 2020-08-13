@@ -1,5 +1,4 @@
-import { StoreValue, Store } from "@gact/store";
-
+import { Store, StoreValue } from "@gact/store";
 import { createUseValue } from "./createUseValue";
 import { createWithStore } from "./createWithStore";
 import { Bindings } from "./types";
