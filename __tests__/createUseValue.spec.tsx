@@ -47,6 +47,23 @@ describe("createUseValue", function() {
     expect(result.current).toBe("aa");
   });
 
+  test("correctly handles change of path", function() {
+    const store = createStore(initialState);
+    const { path } = store;
+    const useValue = createUseValue(store);
+
+    let currentPath: ["a"] | ["b", "c"] = path("a");
+
+    const res = renderHook(() => useValue(currentPath));
+    const { result } = res;
+    expect(result.current).toBe("a");
+
+    currentPath = path("b", "c");
+    res.rerender();
+
+    expect(result.current).toBe(BigInt(0));
+  });
+
   test("returns the transformed value", function() {
     const store = createStore(initialState);
     const useValue = createUseValue(store);

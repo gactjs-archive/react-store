@@ -38,7 +38,7 @@ export function createUseValue<S extends StoreValue>(
         latestValue.current = newLatestValue;
         forceRender();
       },
-      [forceRender, transformer]
+      [path, forceRender, transformer]
     );
 
     useLayoutEffect(
